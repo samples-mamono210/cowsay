@@ -1,0 +1,23 @@
+---
+- name: Verify
+  hosts: all
+
+  tasks:
+    - name: Check whether cowsay is installed
+      ansible.builtin.command: cowsay hello
+      register: cowsay_installed
+      changed_when: False
+      ignore_errors: True
+
+    - name: Check OS version
+      ansible.builtin.command: cat /etc/redhat-release
+      register: os_version
+      changed_when: False
+
+    - name: Show cowsay is installed
+      ansible.builtin.debug:
+        var: cowsay_installed
+
+    - name: Show OS version
+      ansible.builtin.debug:
+        var: os_version
